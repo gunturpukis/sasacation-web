@@ -10,11 +10,12 @@ export function HotelCard({ hotel }: { hotel: Hotel }) {
       className="group block rounded-xl overflow-hidden border border-slate-100 hover:shadow-lg transition-shadow"
     >
       <div className="relative h-48 w-full overflow-hidden bg-slate-100">
-        <Image
-          src={hotel.image}
-          alt={hotel.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+       <Image
+            src={hotel.image}
+            alt={hotel.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {hotel.featured && (
           <span className="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-medium px-2 py-1 rounded-full">
