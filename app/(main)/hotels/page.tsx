@@ -1,7 +1,7 @@
 import { getHotels } from "@/lib/hotel/lib_hotel";
 import { HotelCard } from "@/components/hotel-card";
 import { HotelSearchBar } from "@/components/hotel-search-bar";
- 
+
 export default async function HotelsPage({
   searchParams,
 }: {
@@ -9,21 +9,21 @@ export default async function HotelsPage({
 }) {
   const params = await searchParams;
   const { data: hotels } = await getHotels({ search: params.search });
- 
+
   return (
     <main className="max-w-6xl mx-auto px-6 py-12">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-emerald-950 mb-2">
+        <h1 className="font-heading text-3xl text-[var(--foreground)] mb-2">
           Hotel & Penginapan
         </h1>
-        <p className="text-slate-500 mb-6">
+        <p className="text-[var(--muted-foreground)] mb-6">
           Temukan tempat menginap terbaik untuk liburanmu di Lombok
         </p>
         <HotelSearchBar />
       </div>
- 
+
       {hotels.length === 0 ? (
-        <p className="text-center text-slate-500 py-16">
+        <p className="text-center text-[var(--muted-foreground)] py-16">
           Tidak ada hotel yang ditemukan.
         </p>
       ) : (
@@ -36,4 +36,3 @@ export default async function HotelsPage({
     </main>
   );
 }
- 
