@@ -25,22 +25,22 @@ export default async function BookingPage({
  
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
-      <h1 className="text-2xl font-bold text-emerald-950 mb-6">
+      <h1 className="text-2xl font-bold text-[var(--foreground)] mb-6">
         Lengkapi Detail Booking
       </h1>
  
-      <div className="flex gap-4 mb-8 p-4 rounded-xl border border-slate-100">
-        <div className="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-slate-100">
+      <div className="flex gap-4 mb-8 p-4 rounded-xl border border-[var(--border)]">
+        <div className="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-[var(--muted)]">
           <Image src={hotel.image} alt={hotel.name} fill className="object-cover" />
         </div>
         <div>
           <h2 className="font-semibold text-lg">{hotel.name}</h2>
-          <div className="flex items-center gap-1 text-sm text-slate-500 mt-1">
+          <div className="flex items-center gap-1 text-sm text-[var(--muted-foreground)] mt-1">
             <MapPin className="h-3.5 w-3.5" />
             {hotel.location}
           </div>
           <div className="flex items-center gap-1 mt-1">
-            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+            <Star className="h-4 w-4 fill-[var(--gold)] text-[var(--gold)]" />
             <span className="text-sm font-medium">{hotel.rating}</span>
           </div>
         </div>

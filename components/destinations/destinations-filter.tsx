@@ -56,8 +56,8 @@ export function DestinationFilter() {
             onClick={() => handleCategoryClick(category)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
               activeCategory === category
-                ? "bg-emerald-600 text-white"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
+                : "bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--border)]"
             }`}
           >
             {category}

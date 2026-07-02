@@ -38,26 +38,26 @@ export default async function ProfilePage() {
   return (
     <main className="max-w-3xl mx-auto px-6 py-12">
       {/* Info User */}
-      <div className="rounded-xl border border-slate-100 p-6 mb-10">
+      <div className="rounded-xl border border-[var(--border)] p-6 mb-10">
         <div className="flex items-center gap-4 mb-4">
-          <div className="h-16 w-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xl font-bold">
+          <div className="h-16 w-16 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] text-xl font-bold">
             {user.name.charAt(0).toUpperCase()}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-emerald-950">{user.name}</h1>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 capitalize">
+            <h1 className="text-xl font-bold text-[var(--foreground)]">{user.name}</h1>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] capitalize">
               {user.role}
             </span>
           </div>
         </div>
  
-        <div className="space-y-2 text-sm text-slate-600">
+        <div className="space-y-2 text-sm text-[var(--muted-foreground)]">
           <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-slate-400" />
+            <Mail className="h-4 w-4 text-[var(--muted-foreground)]" />
             {user.email}
           </div>
           <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4 text-slate-400" />
+            <Shield className="h-4 w-4 text-[var(--muted-foreground)]" />
             ID: {user.id}
           </div>
         </div>
@@ -65,7 +65,7 @@ export default async function ProfilePage() {
  
       {/* Riwayat Booking */}
       <div>
-        <h2 className="text-lg font-bold text-emerald-950 mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-[var(--foreground)] mb-4 flex items-center gap-2">
           <User className="h-5 w-5" />
           Riwayat Booking
         </h2>

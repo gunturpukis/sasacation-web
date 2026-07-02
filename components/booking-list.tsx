@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Users, Loader2 } from "lucide-react";
  
 const STATUS_STYLES: Record<string, string> = {
-  confirmed: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  cancelled: "bg-red-50 text-red-700 border-red-200",
-  completed: "bg-slate-50 text-slate-700 border-slate-200",
+  confirmed: "bg-[var(--primary)]/5 text-[var(--primary)] border-[var(--primary)]/30",
+  cancelled: "bg-[var(--destructive)]/10 text-[var(--destructive)] border-[var(--destructive)]/30",
+  completed: "bg-[var(--muted)] text-[var(--muted-foreground)] border-[var(--border)]",
 };
  
 const STATUS_LABELS: Record<string, string> = {
@@ -41,7 +41,7 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
  
   if (bookings.length === 0) {
     return (
-      <p className="text-center text-slate-500 py-12">
+      <p className="text-center text-[var(--muted-foreground)] py-12">
         Belum ada booking. Yuk mulai jelajahi Lombok!
       </p>
     );
@@ -52,9 +52,9 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
       {bookings.map((booking) => (
         <div
           key={booking.id}
-          className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-slate-100"
+          className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-[var(--border)]"
         >
-          <div className="relative w-full sm:w-32 h-32 sm:h-24 rounded-lg overflow-hidden shrink-0 bg-slate-100">
+          <div className="relative w-full sm:w-32 h-32 sm:h-24 rounded-lg overflow-hidden shrink-0 bg-[var(--muted)]">
             <Image
               src={booking.hotelImage}
               alt={booking.hotelName}
@@ -75,9 +75,9 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
               </span>
             </div>
  
-            <p className="text-sm text-slate-500 mb-2">{booking.hotelLocation}</p>
+            <p className="text-sm text-[var(--muted-foreground)] mb-2">{booking.hotelLocation}</p>
  
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mb-2">
+            <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--muted-foreground)] mb-2">
               <span className="flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5" />
                 {new Date(booking.checkIn).toLocaleDateString("id-ID")} -{" "}
@@ -90,10 +90,10 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
             </div>
  
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-[var(--muted-foreground)] font-mono">
                 {booking.bookingCode}
               </span>
-              <span className="font-semibold text-emerald-700">
+              <span className="font-semibold text-[var(--primary)]">
                 ${booking.totalPrice}
               </span>
             </div>
@@ -102,7 +102,7 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
               <Button
                 variant="outline"
                 size="sm"
-                className="mt-3 text-red-600 hover:bg-red-50 hover:text-red-700"
+                className="mt-3 text-[var(--destructive)] hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)]"
                 onClick={() => handleCancel(booking.id)}
                 disabled={cancellingId === booking.id}
               >

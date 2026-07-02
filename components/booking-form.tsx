@@ -126,15 +126,15 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
       </div>
  
       {nights > 0 && (
-        <div className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+        <div className="rounded-lg bg-[var(--primary)]/5 px-4 py-3 text-sm text-[var(--foreground)]">
           {nights} malam × ${hotel.price} ={" "}
           <span className="font-semibold">${nights * hotel.price}</span>
-          <span className="text-emerald-700"> (belum termasuk pajak & biaya layanan)</span>
+          <span className="text-[var(--primary)]"> (belum termasuk pajak & biaya layanan)</span>
         </div>
       )}
  
       {error && (
-        <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+        <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
           {error}
         </p>
       )}

@@ -68,7 +68,7 @@ export default function CheckoutPage() {
   if (isLoadingSession) {
     return (
       <main className="max-w-2xl mx-auto px-6 py-24 flex justify-center">
-        <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
+        <Loader2 className="h-6 w-6 animate-spin text-[var(--primary)]" />
       </main>
     );
   }
@@ -76,7 +76,7 @@ export default function CheckoutPage() {
   if (error && !session) {
     return (
       <main className="max-w-2xl mx-auto px-6 py-24 text-center">
-        <p className="text-red-500 mb-4">{error}</p>
+        <p className="text-[var(--destructive)] mb-4">{error}</p>
         <Button asChild>
           <Link href="/hotels">Kembali ke Hotel</Link>
         </Button>
@@ -87,31 +87,31 @@ export default function CheckoutPage() {
   if (result) {
     return (
       <main className="max-w-lg mx-auto px-6 py-24 text-center">
-        <CheckCircle2 className="h-16 w-16 text-emerald-600 mx-auto mb-4" />
-        <h1 className="text-2xl font-bold text-emerald-950 mb-2">
+        <CheckCircle2 className="h-16 w-16 text-[var(--primary)] mx-auto mb-4" />
+        <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">
           Pembayaran Berhasil!
         </h1>
-        <p className="text-slate-500 mb-6">
+        <p className="text-[var(--muted-foreground)] mb-6">
           Booking kamu sudah dikonfirmasi. Sampai jumpa di Lombok!
         </p>
  
-        <div className="rounded-xl border border-slate-100 p-6 text-left space-y-3 mb-8">
+        <div className="rounded-xl border border-[var(--border)] p-6 text-left space-y-3 mb-8">
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Kode Booking</span>
+            <span className="text-[var(--muted-foreground)]">Kode Booking</span>
             <span className="font-semibold">{result.booking.bookingCode}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Hotel</span>
+            <span className="text-[var(--muted-foreground)]">Hotel</span>
             <span className="font-medium">{result.booking.hotelName}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Total Dibayar</span>
-            <span className="font-semibold text-emerald-700">
+            <span className="text-[var(--muted-foreground)]">Total Dibayar</span>
+            <span className="font-semibold text-[var(--primary)]">
               ${result.payment.amount}
             </span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-slate-500">Transaksi</span>
+            <span className="text-[var(--muted-foreground)]">Transaksi</span>
             <span className="font-mono text-xs">{result.payment.transactionId}</span>
           </div>
         </div>
@@ -132,17 +132,17 @@ export default function CheckoutPage() {
  
   return (
     <main className="max-w-2xl mx-auto px-6 py-12">
-      <h1 className="text-2xl font-bold text-emerald-950 mb-6">Checkout</h1>
+      <h1 className="text-2xl font-bold text-[var(--foreground)] mb-6">Checkout</h1>
  
       {/* Ringkasan hotel */}
-      <div className="flex gap-4 mb-6 p-4 rounded-xl border border-slate-100">
-        <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-slate-100">
+      <div className="flex gap-4 mb-6 p-4 rounded-xl border border-[var(--border)]">
+        <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-[var(--muted)]">
           <Image src={session.hotel.image} alt={session.hotel.name} fill className="object-cover" />
         </div>
         <div>
           <h2 className="font-semibold">{session.hotel.name}</h2>
-          <p className="text-sm text-slate-500">{session.hotel.location}</p>
-          <div className="flex items-center gap-3 mt-2 text-xs text-slate-500">
+          <p className="text-sm text-[var(--muted-foreground)]">{session.hotel.location}</p>
+          <div className="flex items-center gap-3 mt-2 text-xs text-[var(--muted-foreground)]">
             <span className="flex items-center gap-1">
               <Calendar className="h-3.5 w-3.5" />
               {new Date(session.checkIn).toLocaleDateString("id-ID")} -{" "}
@@ -157,25 +157,25 @@ export default function CheckoutPage() {
       </div>
  
       {/* Rincian harga */}
-      <div className="rounded-xl border border-slate-100 p-5 mb-6 space-y-2">
+      <div className="rounded-xl border border-[var(--border)] p-5 mb-6 space-y-2">
         <h3 className="font-semibold mb-3">Rincian Harga</h3>
-        <div className="flex justify-between text-sm text-slate-600">
+        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
           <span>
             ${session.pricing.pricePerNight} × {session.nights} malam
           </span>
           <span>${session.pricing.subtotal}</span>
         </div>
-        <div className="flex justify-between text-sm text-slate-600">
+        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
           <span>Pajak ({session.pricing.taxRate}%)</span>
           <span>${session.pricing.tax}</span>
         </div>
-        <div className="flex justify-between text-sm text-slate-600">
+        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
           <span>Biaya layanan</span>
           <span>${session.pricing.serviceFee}</span>
         </div>
-        <div className="flex justify-between font-semibold text-base pt-2 border-t border-slate-100">
+        <div className="flex justify-between font-semibold text-base pt-2 border-t border-[var(--border)]">
           <span>Total</span>
-          <span className="text-emerald-700">${session.pricing.total}</span>
+          <span className="text-[var(--primary)]">${session.pricing.total}</span>
         </div>
       </div>
  
@@ -188,8 +188,8 @@ export default function CheckoutPage() {
               key={method.id}
               className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
                 selectedMethod === method.id
-                  ? "border-emerald-600 bg-emerald-50"
-                  : "border-slate-200 hover:border-slate-300"
+                  ? "border-[var(--primary)] bg-[var(--primary)]/5"
+                  : "border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
               }`}
             >
               <input
@@ -198,7 +198,7 @@ export default function CheckoutPage() {
                 value={method.id}
                 checked={selectedMethod === method.id}
                 onChange={(e) => setSelectedMethod(e.target.value)}
-                className="accent-emerald-600"
+                className="accent-[var(--accent)]"
               />
               <span className="text-sm font-medium">{method.label}</span>
             </label>
@@ -207,7 +207,7 @@ export default function CheckoutPage() {
       </div>
  
       {error && (
-        <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2 mb-4">
+        <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2 mb-4">
           {error}
         </p>
       )}

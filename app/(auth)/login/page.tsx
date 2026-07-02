@@ -89,7 +89,7 @@ export default function LoginPage() {
             />
 
             {error && (
-              <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+              <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
                 {error}
               </p>
             )}
@@ -101,9 +101,9 @@ export default function LoginPage() {
           </form>
         </Form>
 
-        <p className="text-center text-sm text-slate-500 mt-6">
+        <p className="text-center text-sm text-[var(--muted-foreground)] mt-6">
           Belum punya akun?{" "}
-          <Link href="/register" className="text-emerald-600 font-medium hover:underline">
+          <Link href="/register" className="text-[var(--primary)] font-medium hover:underline">
             Daftar sekarang
           </Link>
         </p>

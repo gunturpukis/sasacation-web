@@ -115,7 +115,7 @@ export default function RegisterPage() {
             />
 
             {error && (
-              <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+              <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
                 {error}
               </p>
             )}
@@ -127,9 +127,9 @@ export default function RegisterPage() {
           </form>
         </Form>
 
-        <p className="text-center text-sm text-slate-500 mt-6">
+        <p className="text-center text-sm text-[var(--muted-foreground)] mt-6">
           Sudah punya akun?{" "}
-          <Link href="/login" className="text-emerald-600 font-medium hover:underline">
+          <Link href="/login" className="text-[var(--primary)] font-medium hover:underline">
             Masuk di sini
           </Link>
         </p>
