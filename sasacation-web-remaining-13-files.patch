@@ -1,0 +1,615 @@
+diff --git a/app/(auth)/layout.tsx b/app/(auth)/layout.tsx
+index ee44b84..5abfb19 100644
+--- a/app/(auth)/layout.tsx
++++ b/app/(auth)/layout.tsx
+@@ -1,4 +1,5 @@
+ import Link from "next/link";
++import { Waves } from "lucide-react";
+ 
+ export default function AuthLayout({
+   children,
+@@ -6,10 +7,11 @@ export default function AuthLayout({
+   children: React.ReactNode;
+ }) {
+   return (
+-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-emerald-50 to-white px-4">
++    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[var(--primary)]/8 to-[var(--background)] px-4">
+       <div className="w-full max-w-md">
+-        <Link href="/" className="block text-center mb-8">
+-          <h1 className="text-3xl font-bold text-emerald-950">Sasacation</h1>
++        <Link href="/" className="flex flex-col items-center gap-2 text-center mb-8">
++          <Waves className="h-6 w-6 text-[var(--accent)]" />
++          <h1 className="text-3xl text-[var(--foreground)]">Sasacation</h1>
+         </Link>
+         {children}
+       </div>
+diff --git a/app/(auth)/login/page.tsx b/app/(auth)/login/page.tsx
+index d4a4a7c..2d511cf 100644
+--- a/app/(auth)/login/page.tsx
++++ b/app/(auth)/login/page.tsx
+@@ -89,7 +89,7 @@ export default function LoginPage() {
+             />
+ 
+             {error && (
+-              <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2">
++              <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
+                 {error}
+               </p>
+             )}
+@@ -101,9 +101,9 @@ export default function LoginPage() {
+           </form>
+         </Form>
+ 
+-        <p className="text-center text-sm text-slate-500 mt-6">
++        <p className="text-center text-sm text-[var(--muted-foreground)] mt-6">
+           Belum punya akun?{" "}
+-          <Link href="/register" className="text-emerald-600 font-medium hover:underline">
++          <Link href="/register" className="text-[var(--primary)] font-medium hover:underline">
+             Daftar sekarang
+           </Link>
+         </p>
+diff --git a/app/(auth)/register/page.tsx b/app/(auth)/register/page.tsx
+index 7aece44..89c3558 100644
+--- a/app/(auth)/register/page.tsx
++++ b/app/(auth)/register/page.tsx
+@@ -115,7 +115,7 @@ export default function RegisterPage() {
+             />
+ 
+             {error && (
+-              <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2">
++              <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
+                 {error}
+               </p>
+             )}
+@@ -127,9 +127,9 @@ export default function RegisterPage() {
+           </form>
+         </Form>
+ 
+-        <p className="text-center text-sm text-slate-500 mt-6">
++        <p className="text-center text-sm text-[var(--muted-foreground)] mt-6">
+           Sudah punya akun?{" "}
+-          <Link href="/login" className="text-emerald-600 font-medium hover:underline">
++          <Link href="/login" className="text-[var(--primary)] font-medium hover:underline">
+             Masuk di sini
+           </Link>
+         </p>
+diff --git a/app/(main)/booking/checkout/page.tsx b/app/(main)/booking/checkout/page.tsx
+index 0d15ba4..82320eb 100644
+--- a/app/(main)/booking/checkout/page.tsx
++++ b/app/(main)/booking/checkout/page.tsx
+@@ -68,7 +68,7 @@ export default function CheckoutPage() {
+   if (isLoadingSession) {
+     return (
+       <main className="max-w-2xl mx-auto px-6 py-24 flex justify-center">
+-        <Loader2 className="h-6 w-6 animate-spin text-emerald-600" />
++        <Loader2 className="h-6 w-6 animate-spin text-[var(--primary)]" />
+       </main>
+     );
+   }
+@@ -76,7 +76,7 @@ export default function CheckoutPage() {
+   if (error && !session) {
+     return (
+       <main className="max-w-2xl mx-auto px-6 py-24 text-center">
+-        <p className="text-red-500 mb-4">{error}</p>
++        <p className="text-[var(--destructive)] mb-4">{error}</p>
+         <Button asChild>
+           <Link href="/hotels">Kembali ke Hotel</Link>
+         </Button>
+@@ -87,31 +87,31 @@ export default function CheckoutPage() {
+   if (result) {
+     return (
+       <main className="max-w-lg mx-auto px-6 py-24 text-center">
+-        <CheckCircle2 className="h-16 w-16 text-emerald-600 mx-auto mb-4" />
+-        <h1 className="text-2xl font-bold text-emerald-950 mb-2">
++        <CheckCircle2 className="h-16 w-16 text-[var(--primary)] mx-auto mb-4" />
++        <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">
+           Pembayaran Berhasil!
+         </h1>
+-        <p className="text-slate-500 mb-6">
++        <p className="text-[var(--muted-foreground)] mb-6">
+           Booking kamu sudah dikonfirmasi. Sampai jumpa di Lombok!
+         </p>
+  
+-        <div className="rounded-xl border border-slate-100 p-6 text-left space-y-3 mb-8">
++        <div className="rounded-xl border border-[var(--border)] p-6 text-left space-y-3 mb-8">
+           <div className="flex justify-between text-sm">
+-            <span className="text-slate-500">Kode Booking</span>
++            <span className="text-[var(--muted-foreground)]">Kode Booking</span>
+             <span className="font-semibold">{result.booking.bookingCode}</span>
+           </div>
+           <div className="flex justify-between text-sm">
+-            <span className="text-slate-500">Hotel</span>
++            <span className="text-[var(--muted-foreground)]">Hotel</span>
+             <span className="font-medium">{result.booking.hotelName}</span>
+           </div>
+           <div className="flex justify-between text-sm">
+-            <span className="text-slate-500">Total Dibayar</span>
+-            <span className="font-semibold text-emerald-700">
++            <span className="text-[var(--muted-foreground)]">Total Dibayar</span>
++            <span className="font-semibold text-[var(--primary)]">
+               ${result.payment.amount}
+             </span>
+           </div>
+           <div className="flex justify-between text-sm">
+-            <span className="text-slate-500">Transaksi</span>
++            <span className="text-[var(--muted-foreground)]">Transaksi</span>
+             <span className="font-mono text-xs">{result.payment.transactionId}</span>
+           </div>
+         </div>
+@@ -132,17 +132,17 @@ export default function CheckoutPage() {
+  
+   return (
+     <main className="max-w-2xl mx-auto px-6 py-12">
+-      <h1 className="text-2xl font-bold text-emerald-950 mb-6">Checkout</h1>
++      <h1 className="text-2xl font-bold text-[var(--foreground)] mb-6">Checkout</h1>
+  
+       {/* Ringkasan hotel */}
+-      <div className="flex gap-4 mb-6 p-4 rounded-xl border border-slate-100">
+-        <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-slate-100">
++      <div className="flex gap-4 mb-6 p-4 rounded-xl border border-[var(--border)]">
++        <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-[var(--muted)]">
+           <Image src={session.hotel.image} alt={session.hotel.name} fill className="object-cover" />
+         </div>
+         <div>
+           <h2 className="font-semibold">{session.hotel.name}</h2>
+-          <p className="text-sm text-slate-500">{session.hotel.location}</p>
+-          <div className="flex items-center gap-3 mt-2 text-xs text-slate-500">
++          <p className="text-sm text-[var(--muted-foreground)]">{session.hotel.location}</p>
++          <div className="flex items-center gap-3 mt-2 text-xs text-[var(--muted-foreground)]">
+             <span className="flex items-center gap-1">
+               <Calendar className="h-3.5 w-3.5" />
+               {new Date(session.checkIn).toLocaleDateString("id-ID")} -{" "}
+@@ -157,25 +157,25 @@ export default function CheckoutPage() {
+       </div>
+  
+       {/* Rincian harga */}
+-      <div className="rounded-xl border border-slate-100 p-5 mb-6 space-y-2">
++      <div className="rounded-xl border border-[var(--border)] p-5 mb-6 space-y-2">
+         <h3 className="font-semibold mb-3">Rincian Harga</h3>
+-        <div className="flex justify-between text-sm text-slate-600">
++        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
+           <span>
+             ${session.pricing.pricePerNight} × {session.nights} malam
+           </span>
+           <span>${session.pricing.subtotal}</span>
+         </div>
+-        <div className="flex justify-between text-sm text-slate-600">
++        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
+           <span>Pajak ({session.pricing.taxRate}%)</span>
+           <span>${session.pricing.tax}</span>
+         </div>
+-        <div className="flex justify-between text-sm text-slate-600">
++        <div className="flex justify-between text-sm text-[var(--muted-foreground)]">
+           <span>Biaya layanan</span>
+           <span>${session.pricing.serviceFee}</span>
+         </div>
+-        <div className="flex justify-between font-semibold text-base pt-2 border-t border-slate-100">
++        <div className="flex justify-between font-semibold text-base pt-2 border-t border-[var(--border)]">
+           <span>Total</span>
+-          <span className="text-emerald-700">${session.pricing.total}</span>
++          <span className="text-[var(--primary)]">${session.pricing.total}</span>
+         </div>
+       </div>
+  
+@@ -188,8 +188,8 @@ export default function CheckoutPage() {
+               key={method.id}
+               className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                 selectedMethod === method.id
+-                  ? "border-emerald-600 bg-emerald-50"
+-                  : "border-slate-200 hover:border-slate-300"
++                  ? "border-[var(--primary)] bg-[var(--primary)]/5"
++                  : "border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
+               }`}
+             >
+               <input
+@@ -198,7 +198,7 @@ export default function CheckoutPage() {
+                 value={method.id}
+                 checked={selectedMethod === method.id}
+                 onChange={(e) => setSelectedMethod(e.target.value)}
+-                className="accent-emerald-600"
++                className="accent-[var(--accent)]"
+               />
+               <span className="text-sm font-medium">{method.label}</span>
+             </label>
+@@ -207,7 +207,7 @@ export default function CheckoutPage() {
+       </div>
+  
+       {error && (
+-        <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2 mb-4">
++        <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2 mb-4">
+           {error}
+         </p>
+       )}
+diff --git a/app/(main)/booking/page.tsx b/app/(main)/booking/page.tsx
+index 5e7246f..b24eb59 100644
+--- a/app/(main)/booking/page.tsx
++++ b/app/(main)/booking/page.tsx
+@@ -25,22 +25,22 @@ export default async function BookingPage({
+  
+   return (
+     <main className="max-w-3xl mx-auto px-6 py-12">
+-      <h1 className="text-2xl font-bold text-emerald-950 mb-6">
++      <h1 className="text-2xl font-bold text-[var(--foreground)] mb-6">
+         Lengkapi Detail Booking
+       </h1>
+  
+-      <div className="flex gap-4 mb-8 p-4 rounded-xl border border-slate-100">
+-        <div className="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-slate-100">
++      <div className="flex gap-4 mb-8 p-4 rounded-xl border border-[var(--border)]">
++        <div className="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-[var(--muted)]">
+           <Image src={hotel.image} alt={hotel.name} fill className="object-cover" />
+         </div>
+         <div>
+           <h2 className="font-semibold text-lg">{hotel.name}</h2>
+-          <div className="flex items-center gap-1 text-sm text-slate-500 mt-1">
++          <div className="flex items-center gap-1 text-sm text-[var(--muted-foreground)] mt-1">
+             <MapPin className="h-3.5 w-3.5" />
+             {hotel.location}
+           </div>
+           <div className="flex items-center gap-1 mt-1">
+-            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
++            <Star className="h-4 w-4 fill-[var(--gold)] text-[var(--gold)]" />
+             <span className="text-sm font-medium">{hotel.rating}</span>
+           </div>
+         </div>
+diff --git a/app/(main)/destinations/[id]/page.tsx b/app/(main)/destinations/[id]/page.tsx
+index 10e4ece..d8de78f 100644
+--- a/app/(main)/destinations/[id]/page.tsx
++++ b/app/(main)/destinations/[id]/page.tsx
+@@ -23,7 +23,7 @@ export default async function DestinationDetailPage({
+     <main className="max-w-4xl mx-auto px-6 py-12">
+       <Link
+         href="/destinations"
+-        className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-emerald-600 mb-6 transition-colors"
++        className="inline-flex items-center gap-1 text-sm text-[var(--muted-foreground)] hover:text-[var(--primary)] mb-6 transition-colors"
+       >
+         <ArrowLeft className="h-4 w-4" />
+         Kembali ke Destinasi
+@@ -31,7 +31,7 @@ export default async function DestinationDetailPage({
+  
+       {/* Galeri */}
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 rounded-xl overflow-hidden">
+-        <div className="relative md:col-span-2 h-80 md:h-96 bg-slate-100">
++        <div className="relative md:col-span-2 h-80 md:h-96 bg-[var(--muted)]">
+           <Image
+             src={destination.images[0]}
+             alt={destination.name}
+@@ -43,7 +43,7 @@ export default async function DestinationDetailPage({
+         {destination.images.length > 1 && (
+           <div className="hidden md:grid grid-rows-2 gap-3">
+             {destination.images.slice(1, 3).map((img, i) => (
+-              <div key={i} className="relative h-full bg-slate-100">
++              <div key={i} className="relative h-full bg-[var(--muted)]">
+                 <Image
+                   src={img}
+                   alt={`${destination.name} ${i + 2}`}
+@@ -57,24 +57,24 @@ export default async function DestinationDetailPage({
+         )}
+       </div>
+  
+-      <span className="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full mb-3">
++      <span className="inline-block bg-[var(--primary)]/5 text-[var(--primary)] text-xs font-medium px-3 py-1 rounded-full mb-3">
+         {destination.subCategory}
+       </span>
+  
+-      <div className="flex items-center gap-1 text-slate-500 mb-2">
++      <div className="flex items-center gap-1 text-[var(--muted-foreground)] mb-2">
+         <MapPin className="h-4 w-4" />
+         {destination.address}
+       </div>
+  
+-      <h1 className="text-3xl font-bold text-emerald-950 mb-3">{destination.name}</h1>
++      <h1 className="text-3xl font-bold text-[var(--foreground)] mb-3">{destination.name}</h1>
+  
+       <div className="flex items-center gap-2 mb-6">
+-        <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
++        <Star className="h-5 w-5 fill-[var(--gold)] text-[var(--gold)]" />
+         <span className="font-semibold">{destination.rating}</span>
+-        <span className="text-slate-400">({destination.reviewCount} ulasan)</span>
++        <span className="text-[var(--muted-foreground)]">({destination.reviewCount} ulasan)</span>
+       </div>
+  
+-      <p className="text-slate-600 leading-relaxed">{destination.description}</p>
++      <p className="text-[var(--muted-foreground)] leading-relaxed">{destination.description}</p>
+     </main>
+   );
+ }
+diff --git a/app/(main)/destinations/page.tsx b/app/(main)/destinations/page.tsx
+index 48643f3..ed409af 100644
+--- a/app/(main)/destinations/page.tsx
++++ b/app/(main)/destinations/page.tsx
+@@ -19,17 +19,17 @@ export default async function DestinationsPage({
+   return (
+     <main className="max-w-6xl mx-auto px-6 py-12">
+       <div className="mb-8">
+-        <h1 className="text-3xl font-bold text-emerald-950 mb-2">
++        <h1 className="text-3xl font-bold text-[var(--foreground)] mb-2">
+           Destinasi Wisata
+         </h1>
+-        <p className="text-slate-500 mb-6">
++        <p className="text-[var(--muted-foreground)] mb-6">
+           Jelajahi keindahan alam dan budaya Lombok
+         </p>
+         <DestinationFilter />
+       </div>
+  
+       {destinations.length === 0 ? (
+-        <p className="text-center text-slate-500 py-16">
++        <p className="text-center text-[var(--muted-foreground)] py-16">
+           Tidak ada destinasi yang ditemukan.
+         </p>
+       ) : (
+diff --git a/app/(main)/hotels/[id]/page.tsx b/app/(main)/hotels/[id]/page.tsx
+index 13f4828..c4ae416 100644
+--- a/app/(main)/hotels/[id]/page.tsx
++++ b/app/(main)/hotels/[id]/page.tsx
+@@ -23,7 +23,7 @@ export default async function HotelDetailPage({
+     <main className="max-w-5xl mx-auto px-6 py-12">
+       {/* Gambar utama + galeri */}
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8 rounded-xl overflow-hidden">
+-        <div className="relative md:col-span-2 h-80 md:h-96 bg-slate-100">
++        <div className="relative md:col-span-2 h-80 md:h-96 bg-[var(--muted)]">
+           <Image
+             src={hotel.images[0]}
+             alt={hotel.name}
+@@ -33,7 +33,7 @@ export default async function HotelDetailPage({
+         </div>
+         <div className="hidden md:grid grid-rows-2 gap-3">
+           {hotel.images.slice(1, 3).map((img, i) => (
+-            <div key={i} className="relative h-full bg-slate-100">
++            <div key={i} className="relative h-full bg-[var(--muted)]">
+               <Image src={img} alt={`${hotel.name} ${i + 2}`} fill className="object-cover" />
+             </div>
+           ))}
+@@ -43,26 +43,26 @@ export default async function HotelDetailPage({
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+         {/* Info utama */}
+         <div className="md:col-span-2">
+-          <div className="flex items-center gap-1 text-slate-500 mb-2">
++          <div className="flex items-center gap-1 text-[var(--muted-foreground)] mb-2">
+             <MapPin className="h-4 w-4" />
+             {hotel.address}
+           </div>
+  
+-          <h1 className="text-3xl font-bold text-emerald-950 mb-3">{hotel.name}</h1>
++          <h1 className="text-3xl font-bold text-[var(--foreground)] mb-3">{hotel.name}</h1>
+  
+           <div className="flex items-center gap-2 mb-6">
+-            <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
++            <Star className="h-5 w-5 fill-[var(--gold)] text-[var(--gold)]" />
+             <span className="font-semibold">{hotel.rating}</span>
+-            <span className="text-slate-400">({hotel.reviewCount} ulasan)</span>
++            <span className="text-[var(--muted-foreground)]">({hotel.reviewCount} ulasan)</span>
+           </div>
+  
+-          <p className="text-slate-600 leading-relaxed mb-8">{hotel.description}</p>
++          <p className="text-[var(--muted-foreground)] leading-relaxed mb-8">{hotel.description}</p>
+  
+           <h2 className="font-semibold text-lg mb-4">Fasilitas</h2>
+           <div className="grid grid-cols-2 gap-3">
+             {hotel.amenities.map((amenity) => (
+-              <div key={amenity} className="flex items-center gap-2 text-sm text-slate-600">
+-                <Check className="h-4 w-4 text-emerald-600 shrink-0" />
++              <div key={amenity} className="flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
++                <Check className="h-4 w-4 text-[var(--primary)] shrink-0" />
+                 {amenity}
+               </div>
+             ))}
+@@ -71,10 +71,10 @@ export default async function HotelDetailPage({
+  
+         {/* Booking card */}
+         <div>
+-          <div className="sticky top-24 border border-slate-100 rounded-xl p-6 shadow-sm">
++          <div className="sticky top-24 border border-[var(--border)] rounded-xl p-6 shadow-sm">
+             <div className="mb-4">
+-              <span className="text-2xl font-bold text-emerald-700">${hotel.price}</span>
+-              <span className="text-slate-400"> /malam</span>
++              <span className="text-2xl font-bold text-[var(--primary)]">${hotel.price}</span>
++              <span className="text-[var(--muted-foreground)]"> /malam</span>
+             </div>
+  
+             {hotel.available ? (
+diff --git a/app/(main)/profile/page.tsx b/app/(main)/profile/page.tsx
+index ae97b36..6df1cc1 100644
+--- a/app/(main)/profile/page.tsx
++++ b/app/(main)/profile/page.tsx
+@@ -38,26 +38,26 @@ export default async function ProfilePage() {
+   return (
+     <main className="max-w-3xl mx-auto px-6 py-12">
+       {/* Info User */}
+-      <div className="rounded-xl border border-slate-100 p-6 mb-10">
++      <div className="rounded-xl border border-[var(--border)] p-6 mb-10">
+         <div className="flex items-center gap-4 mb-4">
+-          <div className="h-16 w-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xl font-bold">
++          <div className="h-16 w-16 rounded-full bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] text-xl font-bold">
+             {user.name.charAt(0).toUpperCase()}
+           </div>
+           <div>
+-            <h1 className="text-xl font-bold text-emerald-950">{user.name}</h1>
+-            <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 capitalize">
++            <h1 className="text-xl font-bold text-[var(--foreground)]">{user.name}</h1>
++            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] capitalize">
+               {user.role}
+             </span>
+           </div>
+         </div>
+  
+-        <div className="space-y-2 text-sm text-slate-600">
++        <div className="space-y-2 text-sm text-[var(--muted-foreground)]">
+           <div className="flex items-center gap-2">
+-            <Mail className="h-4 w-4 text-slate-400" />
++            <Mail className="h-4 w-4 text-[var(--muted-foreground)]" />
+             {user.email}
+           </div>
+           <div className="flex items-center gap-2">
+-            <Shield className="h-4 w-4 text-slate-400" />
++            <Shield className="h-4 w-4 text-[var(--muted-foreground)]" />
+             ID: {user.id}
+           </div>
+         </div>
+@@ -65,7 +65,7 @@ export default async function ProfilePage() {
+  
+       {/* Riwayat Booking */}
+       <div>
+-        <h2 className="text-lg font-bold text-emerald-950 mb-4 flex items-center gap-2">
++        <h2 className="text-lg font-bold text-[var(--foreground)] mb-4 flex items-center gap-2">
+           <User className="h-5 w-5" />
+           Riwayat Booking
+         </h2>
+diff --git a/components/booking-form.tsx b/components/booking-form.tsx
+index 7c69635..4d10368 100644
+--- a/components/booking-form.tsx
++++ b/components/booking-form.tsx
+@@ -126,15 +126,15 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
+       </div>
+  
+       {nights > 0 && (
+-        <div className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
++        <div className="rounded-lg bg-[var(--primary)]/5 px-4 py-3 text-sm text-[var(--foreground)]">
+           {nights} malam × ${hotel.price} ={" "}
+           <span className="font-semibold">${nights * hotel.price}</span>
+-          <span className="text-emerald-700"> (belum termasuk pajak & biaya layanan)</span>
++          <span className="text-[var(--primary)]"> (belum termasuk pajak & biaya layanan)</span>
+         </div>
+       )}
+  
+       {error && (
+-        <p className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-md px-3 py-2">
++        <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
+           {error}
+         </p>
+       )}
+diff --git a/components/booking-list.tsx b/components/booking-list.tsx
+index 5663e87..f9d900a 100644
+--- a/components/booking-list.tsx
++++ b/components/booking-list.tsx
+@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
+ import { Calendar, Users, Loader2 } from "lucide-react";
+  
+ const STATUS_STYLES: Record<string, string> = {
+-  confirmed: "bg-emerald-50 text-emerald-700 border-emerald-200",
+-  cancelled: "bg-red-50 text-red-700 border-red-200",
+-  completed: "bg-slate-50 text-slate-700 border-slate-200",
++  confirmed: "bg-[var(--primary)]/5 text-[var(--primary)] border-[var(--primary)]/30",
++  cancelled: "bg-[var(--destructive)]/10 text-[var(--destructive)] border-[var(--destructive)]/30",
++  completed: "bg-[var(--muted)] text-[var(--muted-foreground)] border-[var(--border)]",
+ };
+  
+ const STATUS_LABELS: Record<string, string> = {
+@@ -41,7 +41,7 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
+  
+   if (bookings.length === 0) {
+     return (
+-      <p className="text-center text-slate-500 py-12">
++      <p className="text-center text-[var(--muted-foreground)] py-12">
+         Belum ada booking. Yuk mulai jelajahi Lombok!
+       </p>
+     );
+@@ -52,9 +52,9 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
+       {bookings.map((booking) => (
+         <div
+           key={booking.id}
+-          className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-slate-100"
++          className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-[var(--border)]"
+         >
+-          <div className="relative w-full sm:w-32 h-32 sm:h-24 rounded-lg overflow-hidden shrink-0 bg-slate-100">
++          <div className="relative w-full sm:w-32 h-32 sm:h-24 rounded-lg overflow-hidden shrink-0 bg-[var(--muted)]">
+             <Image
+               src={booking.hotelImage}
+               alt={booking.hotelName}
+@@ -75,9 +75,9 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
+               </span>
+             </div>
+  
+-            <p className="text-sm text-slate-500 mb-2">{booking.hotelLocation}</p>
++            <p className="text-sm text-[var(--muted-foreground)] mb-2">{booking.hotelLocation}</p>
+  
+-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mb-2">
++            <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--muted-foreground)] mb-2">
+               <span className="flex items-center gap-1">
+                 <Calendar className="h-3.5 w-3.5" />
+                 {new Date(booking.checkIn).toLocaleDateString("id-ID")} -{" "}
+@@ -90,10 +90,10 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
+             </div>
+  
+             <div className="flex items-center justify-between">
+-              <span className="text-xs text-slate-400 font-mono">
++              <span className="text-xs text-[var(--muted-foreground)] font-mono">
+                 {booking.bookingCode}
+               </span>
+-              <span className="font-semibold text-emerald-700">
++              <span className="font-semibold text-[var(--primary)]">
+                 ${booking.totalPrice}
+               </span>
+             </div>
+@@ -102,7 +102,7 @@ export function BookingList({ bookings }: { bookings: BookingWithHotel[] }) {
+               <Button
+                 variant="outline"
+                 size="sm"
+-                className="mt-3 text-red-600 hover:bg-red-50 hover:text-red-700"
++                className="mt-3 text-[var(--destructive)] hover:bg-[var(--destructive)]/10 hover:text-[var(--destructive)]"
+                 onClick={() => handleCancel(booking.id)}
+                 disabled={cancellingId === booking.id}
+               >
+diff --git a/components/destinations/destinations-card.tsx b/components/destinations/destinations-card.tsx
+index e8596c7..e6b5265 100644
+--- a/components/destinations/destinations-card.tsx
++++ b/components/destinations/destinations-card.tsx
+@@ -7,9 +7,9 @@ export function DestinationCard({ destination }: { destination: Destination }) {
+   return (
+     <Link
+       href={`/destinations/${destination.id}`}
+-      className="group block rounded-xl overflow-hidden border border-slate-100 hover:shadow-lg transition-shadow"
++      className="group block rounded-xl overflow-hidden border border-[var(--border)] hover:shadow-lg transition-shadow"
+     >
+-      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
++      <div className="relative h-48 w-full overflow-hidden bg-[var(--muted)]">
+         <Image
+           src={destination.image}
+           alt={destination.name}
+@@ -17,25 +17,25 @@ export function DestinationCard({ destination }: { destination: Destination }) {
+           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+           className="object-cover group-hover:scale-105 transition-transform duration-300"
+         />
+-        <span className="absolute top-3 left-3 bg-white/90 backdrop-blur text-emerald-700 text-xs font-medium px-2 py-1 rounded-full">
++        <span className="absolute top-3 left-3 bg-[var(--card)]/90 backdrop-blur text-[var(--primary)] text-xs font-medium px-2 py-1 rounded-full">
+           {destination.subCategory}
+         </span>
+       </div>
+  
+       <div className="p-4">
+-        <div className="flex items-center gap-1 text-sm text-slate-500 mb-1">
++        <div className="flex items-center gap-1 text-sm text-[var(--muted-foreground)] mb-1">
+           <MapPin className="h-3.5 w-3.5" />
+           {destination.location}
+         </div>
+  
+-        <h3 className="font-semibold text-lg text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
++        <h3 className="font-semibold text-lg text-[var(--foreground)] mb-2 group-hover:text-[var(--primary)] transition-colors">
+           {destination.name}
+         </h3>
+  
+         <div className="flex items-center gap-1">
+-          <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
++          <Star className="h-4 w-4 fill-[var(--gold)] text-[var(--gold)]" />
+           <span className="text-sm font-medium">{destination.rating}</span>
+-          <span className="text-sm text-slate-400">({destination.reviewCount})</span>
++          <span className="text-sm text-[var(--muted-foreground)]">({destination.reviewCount})</span>
+         </div>
+       </div>
+     </Link>
+diff --git a/components/destinations/destinations-filter.tsx b/components/destinations/destinations-filter.tsx
+index 01f6f55..3e53c2b 100644
+--- a/components/destinations/destinations-filter.tsx
++++ b/components/destinations/destinations-filter.tsx
+@@ -56,8 +56,8 @@ export function DestinationFilter() {
+             onClick={() => handleCategoryClick(category)}
+             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+               activeCategory === category
+-                ? "bg-emerald-600 text-white"
+-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
++                ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
++                : "bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--border)]"
+             }`}
+           >
+             {category}

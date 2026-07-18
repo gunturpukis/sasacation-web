@@ -53,3 +53,49 @@ export async function registerUser(name: string, email: string, password: string
   if (!res.ok) throw new Error(data.message || "Registrasi gagal");
   return data;
 }
+
+// ─── Partner ────────────────────────────────────────────────────────────────
+export async function applyForPartner(payload: {
+  businessName: string;
+  description?: string;
+  phone: string;
+  address: string;
+}) {
+  const res = await fetch("/api/partners/apply", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Pengajuan mitra gagal");
+  return data;
+}
+
+export async function createHotel(payload: Record<string, unknown>) {
+  const res = await fetch("/api/partners/hotels", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Gagal membuat hotel");
+  return data;
+}
+
+export async function updateHotel(id: string, payload: Record<string, unknown>) {
+  const res = await fetch(`/api/partners/hotels/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Gagal memperbarui hotel");
+  return data;
+}
+
+export async function deleteHotel(id: string) {
+  const res = await fetch(`/api/partners/hotels/${id}`, { method: "DELETE" });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Gagal menghapus hotel");
+  return data;
+}

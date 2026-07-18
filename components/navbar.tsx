@@ -34,6 +34,21 @@ export function Navbar() {
             <Loader2 className="h-4 w-4 animate-spin text-[var(--primary-foreground)]/60" />
           ) : user ? (
             <>
+              {user.role === "partner" ? (
+                <Link
+                  href="/partner/dashboard"
+                  className="hidden sm:block text-sm font-medium text-[var(--primary-foreground)]/85 hover:text-[var(--gold)] transition-colors"
+                >
+                  Dashboard Mitra
+                </Link>
+              ) : user.role === "user" ? (
+                <Link
+                  href="/partner/apply"
+                  className="hidden sm:block text-sm font-medium text-[var(--primary-foreground)]/85 hover:text-[var(--gold)] transition-colors"
+                >
+                  Jadi Mitra
+                </Link>
+              ) : null}
               <Link
                 href="/profile"
                 className="hidden sm:block text-sm font-medium text-[var(--primary-foreground)]/85 hover:text-[var(--gold)] transition-colors"
