@@ -1,13 +1,14 @@
 "use client";
- 
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Hotel } from "@/types/hotel";
+import { StoredCheckoutData } from "@/types/checkout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
- 
+
 export function BookingForm({ hotel }: { hotel: Hotel }) {
   const router = useRouter();
   const [checkIn, setCheckIn] = useState("");
@@ -16,13 +17,13 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
   const [notes, setNotes] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
- 
+
   const today = new Date().toISOString().split("T")[0];
- 
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
- 
+
     if (!checkIn || !checkOut) {
       setError("Tanggal check-in dan check-out wajib diisi");
       return;
@@ -31,7 +32,7 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
       setError("Tanggal check-out harus setelah check-in");
       return;
     }
- 
+
     setIsLoading(true);
     try {
       const res = await fetch("/api/checkout/initiate", {
@@ -45,17 +46,24 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
           notes,
         }),
       });
- 
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Gagal membuat booking");
- 
-      router.push(`/booking/checkout?sessionId=${data.data.sessionId}`);
+
+      // FIX: backend /checkout/initiate stateless — tidak pernah mengembalikan
+      // sessionId untuk dirujuk lagi nanti. Simpan hasilnya (+ hotelId untuk
+      // dipakai lagi saat submit /checkout/pay) di sessionStorage, lalu bawa
+      // ke halaman checkout tanpa query param sessionId.
+      const stored: StoredCheckoutData = { ...data.data, hotelId: hotel.id };
+      sessionStorage.setItem("checkoutData", JSON.stringify(stored));
+
+      router.push("/booking/checkout");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Terjadi kesalahan");
       setIsLoading(false);
     }
   }
- 
+
   const nights =
     checkIn && checkOut
       ? Math.max(
@@ -66,7 +74,7 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
           )
         )
       : 0;
- 
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-2 gap-4">
@@ -97,7 +105,7 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
           />
         </div>
       </div>
- 
+
       <div>
         <Label htmlFor="guestCount" className="mb-2 block">
           Jumlah Tamu
@@ -112,7 +120,7 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
           required
         />
       </div>
- 
+
       <div>
         <Label htmlFor="notes" className="mb-2 block">
           Catatan (opsional)
@@ -124,7 +132,7 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
           onChange={(e) => setNotes(e.target.value)}
         />
       </div>
- 
+
       {nights > 0 && (
         <div className="rounded-lg bg-[var(--primary)]/5 px-4 py-3 text-sm text-[var(--foreground)]">
           {nights} malam × ${hotel.price} ={" "}
@@ -132,13 +140,13 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
           <span className="text-[var(--primary)]"> (belum termasuk pajak & biaya layanan)</span>
         </div>
       )}
- 
+
       {error && (
         <p className="text-sm text-[var(--destructive)] bg-[var(--destructive)]/10 border border-[var(--destructive)]/30 rounded-md px-3 py-2">
           {error}
         </p>
       )}
- 
+
       <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Lanjut ke Pembayaran
@@ -146,4 +154,3 @@ export function BookingForm({ hotel }: { hotel: Hotel }) {
     </form>
   );
 }
- 
